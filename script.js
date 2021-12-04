@@ -6,51 +6,90 @@ function computerPlay() {
     return ans
 }
 
-function game(plays, computerSelect) {
-    let u = 0;
-    let v = 0;
-    for (i = 0; i < 5; i++){
-        let playerSelection = prompt("enter:");
+document.getElementById("roc").addEventListener("click", () => {
+    let playerSelection = "rock";
+    game(playerSelection, computerPlay);
+});
+
+document.getElementById("pap").addEventListener("click", () => {
+    let playerSelection = "paper";
+    game(playerSelection, computerPlay);
+});
+
+document.getElementById("sci").addEventListener("click", () => {
+    let playerSelection = "scissor";
+    game(playerSelection, computerPlay);
+});
+
+
+const scorep = document.createTextNode("You Won This Battle!");
+const scorel = document.createTextNode("You Lost This Battle!");
+const lsr = document.createElement("h2");
+const wnr = document.createElement("h2");
+lsr.appendChild(scorel);
+wnr.appendChild(scorep);
+let rnd = 0;
+
+let u = 0;
+let v = 0;
+
+function game(playerSelection, computerSelect) {
+    if (playerSelection == null){
+        console.log("Sorry Not Sure What's wrong!?");   
+    } else {
         let plays = playerSelection;
         computerSelect = computerPlay().toLowerCase();
         plays = playerSelection.toLowerCase();
         if (plays != computerSelect) {
             if (plays == "rock" && computerSelect == "scissor"){
-                console.log("You Won!");
                 u ++;
+                rnd ++;
+                console.log("1+");
             } else if (plays == "rock" && computerSelect == "paper") {
-                console.log("You Lost!");
                 v ++;
+                rnd ++;
+                console.log("1-");
             } else if (plays == "paper" && computerSelect == "rock") {
-                console.log("You Won!");
                 u ++;
+                rnd ++;
+                console.log("1+");
             } else if (plays == "scissor" && computerSelect == "rock") {
-                console.log("You Lost!");
                 v ++;
+                rnd ++;
+                console.log("1-");
             } else if (plays == "scissor" && computerSelect == "paper") {
-                console.log("You Won!");
                 u ++;
+                rnd ++;
+                console.log("1+");
             } else if (plays == "paper" && computerSelect == "scissor") {
-                console.log("You Lost!");
                 v ++;
+                rnd ++;
+                console.log("1-");
             } else {
                 console.log("Error");
             }
         } else if (plays == computerSelect) {
-            console.log("DRAW!");
             v ++;
             u ++;
+            console.log("draw 1 + both");
         } else {
             console.log("ERROR")
         }
     }
+if (rnd === 5){
     if (u > v) {
-        console.log("You Won The Game", u, v);
+        document.getElementById("res").appendChild(wnr);
+        console.log("winner");
+        rnd = 0;
     } else if (u < v) {
-        console.log("You Lost Game Over!", u, v);
+        document.getElementById("res").appendChild(lsr);
+        console.log("losser");
+        rnd = 0;
     } else {
-        console.log("It's A Draw!", u, v);
+        document.getElementById("res").appendChild(l);
+        console.log("Draw");
+        rnd = 0;
     }
+}    
 }
 
-game();
